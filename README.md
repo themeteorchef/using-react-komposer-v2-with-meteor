@@ -1,6 +1,6 @@
 #### Tutorial: Using React Komposer v2 with Meteor
 
-Description of this tutorial goes here. Used in your tutorial repo's README.md file.
+In this tutorial, we'll learn how to migrate from Meteor Development Group's createContainer() method of defining data containers for our React components to version two of React Komposer.
 
 [Read this tutorial on The Meteor Chef](https://themeteorchef.com/tutorials/using-react-komposer-v2-with-meteor)  
 
