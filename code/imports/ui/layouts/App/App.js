@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 import Navigation from '../../components/Navigation/Navigation';
 import Authenticated from '../../components/Authenticated/Authenticated';
@@ -24,6 +23,8 @@ import Footer from '../../components/Footer/Footer';
 import Terms from '../../pages/Terms/Terms';
 import Privacy from '../../pages/Privacy/Privacy';
 import ExamplePage from '../../pages/ExamplePage/ExamplePage';
+import container from '../../../modules/container';
+
 
 import './App.scss';
 
@@ -64,7 +65,7 @@ const getUserName = name => ({
   object: `${name.first} ${name.last}`,
 }[typeof name]);
 
-export default createContainer(() => {
+export default container((props, onData) => {
   const loggingIn = Meteor.loggingIn();
   const user = Meteor.user();
   const userId = Meteor.userId();
@@ -72,11 +73,11 @@ export default createContainer(() => {
   const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
   const emailAddress = user && user.emails && user.emails[0].address;
 
-  return {
+  onData(null, {
     loading,
     loggingIn,
     authenticated: !loggingIn && !!userId,
     name: name || emailAddress,
     roles: !loading && Roles.getRolesForUser(userId),
-  };
+  });
 }, App);
